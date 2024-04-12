@@ -64,7 +64,14 @@ class Moto {
     public function setActiva ($nuevo){
         $this->activa = $nuevo;
     }
-
+    
+/* Implementar el método darPrecioVenta el cual calcula el valor por el cual puede ser vendida una moto.
+Si la moto no se encuentra disponible para la venta retorna un valor < 0. Si la moto está disponible para
+la venta, el método realiza el siguiente cálculo:
+$_venta = $_compra + $_compra * (anio * por_inc_anual)
+donde $_compra: es el costo de la moto.
+anio: cantidad de años transcurridos desde que se fabricó la moto.
+por_inc_anual: porcentaje de incremento anual de la moto.*/
     public function darPrecioVenta (){
         $venta = -1;
         if ($this->getActiva()){
@@ -74,7 +81,7 @@ class Moto {
         return $venta;
     }
 
-    public function _toString (){
+    public function __toString (){
         return $this->getCodigo() . " " . $this->getCosto() . " " . $this->getAño() . " " . $this->getDescripcion() . " " . $this->getPorcentaje() . " " . $this->getActiva() . "\n" ;
     }
 }

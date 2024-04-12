@@ -55,7 +55,7 @@ class Cliente {
         $this->numDocumento = $nuevo;
     }
     
-    public function _toString(){
+    public function __toString(){
         return $this->getNombre() . " " . $this->getApellido() . " " . $this->getBaja() . " " . $this->getTipoDoc() . " " . $this->getNumDoc() . "\n" ;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 class Empresa {
 
     private $denominacion;
@@ -69,6 +70,8 @@ class Empresa {
        $this->arrayVentas = $nuevo;
     }
 
+/*Implementar el método retornarMoto($codigoMoto) que recorre la colección de motos de la Empresa y
+retorna la referencia al objeto moto cuyo código coincide con el recibido por parámetro.*/
     public function retornarMoto($codigoMoto){
         $m = count($this->getMotos());
         $i = 0;
@@ -84,6 +87,13 @@ class Empresa {
         return $indiceMoto;
     }
 
+/* Implementar el método registrarVenta($colCodigosMoto, $objCliente) método que recibe por
+parámetro una colección de códigos de motos, la cual es recorrida, y por cada elemento de la colección
+se busca el objeto moto correspondiente al código y se incorpora a la colección de motos de la instancia
+Venta que debe ser creada. Recordar que no todos los clientes ni todas las motos, están disponibles
+para registrar una venta en un momento determinado.
+El método debe setear los variables instancias de venta que corresponda y retornar el importe final de la
+venta*/
     public function registrarVenta($colCodigosMoto, $objCliente){
         $nuevaColMotos = [];
         $precioFinal = 0;
@@ -105,6 +115,8 @@ class Empresa {
         return $precioFinal;
     }
 
+/*Implementar el método retornarVentasXCliente($tipo,$numDoc) que recibe por parámetro el tipo y
+número de documento de un Cliente y retorna una colección con las ventas realizadas al cliente.*/
     public function retornarVentasXCliente($tipo,$numDoc){
         $coleccionCliente = [];
         for($i=0; $i < count($this->getVentas()); $i++){
@@ -116,8 +128,41 @@ class Empresa {
         return $coleccionCliente;
     }
 
+//para poder convertir a string el array de clientes
+    public function datosClientes(){
+        $coleccionCl = $this->getClientes();
+        $texto = " ";
+        for($i = 0; $i <count($coleccionCl); $i++){
+            $texto .=  $coleccionCl[$i]->getNombre() . " " . $coleccionCl[$i]->getApellido() . " " . $coleccionCl[$i]->getBaja() . " " . $coleccionCl[$i]->getTipoDoc() . " " . $coleccionCl[$i]->getNumDoc() . "\n";
+        }
+        return $texto;
+
+    }
+//para poder convertir a string el array de motos
+    public function datosMotos(){
+        $coleccionM = $this->getMotos();
+        $texto = " ";
+        for($i = 0; $i <count($coleccionM); $i++){
+            $texto .=  $coleccionM[$i]->getCodigo() . " " . $coleccionM[$i]->getCosto() . " " . $coleccionM[$i]->getAño() . " " . $coleccionM[$i]->getDescripcion() . " " . $coleccionM[$i]->getPorcentaje() . " " . $coleccionM[$i]->getActiva() . "\n";
+        }
+        return $texto;
+    }
+
+//para poder convertir a string el array de ventas, aunque faltan datos de motos y clientes
+    public function datosVentas(){
+        $coleccionV = $this->getVentas();
+        $texto = " ";
+        for($i = 0; $i <count($coleccionV); $i++){
+            $clienteV = $coleccionV[$i]->getCliente();
+            $motoV = $coleccionV[$i]->getMotos();
+            $texto .=  $coleccionV[$i]->getNumero() . " " . $coleccionV[$i]->getFecha() . " " . $coleccionV[$i]->getPrecio() . "\n" ; 
+    }
+    return $texto;
+
+}
+
     public function __toString (){
-        return $this->getDenominacion() . " " . $this->getDireccion() . " " . $this->getClientes() . " " . $this->getMotos() . " " . $this->getVentas() . "\n";
+        return $this->getDenominacion() . " " . $this->getDireccion() . "\n" . $this->datosClientes() . " " . $this->datosMotos() . " " . $this->datosVentas() . "\n";
      }
 
 
